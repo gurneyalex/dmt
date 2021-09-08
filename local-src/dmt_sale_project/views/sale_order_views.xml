@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_inherit_sale_project" model="ir.ui.view">
+        <field name="name">sale.order.form.sale.project</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_project.view_order_form_inherit_sale_project"/>
+        <field name="arch" type="xml">
+            <field name="partner_shipping_id" position="after">
+                <field name="project_id" position="move"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="name">sale.order.list.select</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <field name="team_id" position="after">
+                <field name="project_id" />
+            </field>
+            <filter name="order_month" position="after">
+                <filter name="project_id" domain="[]" context="{'group_by': 'project_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <field name="invoice_status" position="before">
+                <field name="project_id"></field>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <field name="invoice_status" position="before">
+                <field name="project_id"></field>
+            </field>
+        </field>
+    </record>
+
+</odoo>
